@@ -1,0 +1,28 @@
+extends layout
+
+block content
+    .row
+        h2.subheader Register
+        p Please register using the form below.
+        if errors
+            each error, i in errors
+                .alert.callout
+                    i.fi-alert
+                    span  #{error.msg}
+        form(method='post', action='/users/register')
+            .form-group
+                label Name
+                    input.form-control(name='name', type='text', placeholder='Enter name here')
+            .form-group
+                label Email
+                    input.form-control(name='email', type='email', placeholder='Enter email here')
+            .form-group
+                label Username
+                    input.form-control(name='username', type='text', placeholder='Enter username here')
+            .form-group
+                label Password
+                    input.form-control(name='password', type='password', placeholder='Enter password here')
+            .form-group
+                label Confirm Password
+                    input.form-control(name='password2', type='password', placeholder='Confirm password here')
+            input.button(type='submit', name='submit', value='Register')

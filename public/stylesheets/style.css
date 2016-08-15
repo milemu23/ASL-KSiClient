@@ -1,0 +1,59 @@
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #e4e5e6 !important;
+}
+
+a {
+  color: #fff !important;
+}
+
+.success {
+  background-color: #e1faea;
+  margin: 0px;
+}
+
+.error {
+  background-color: #f2dede;
+  margin: 0px;
+}
+
+#messages li {
+  margin: 0 0 1rem 0;
+  padding: 1rem 2rem;
+  border: 1px solid rgba(10, 10, 10, 0.25);
+  border-radius: 0;
+  color: #0a0a0a;
+  list-style: none;
+  width:100%;
+}
+
+input:-webkit-autofill {
+  background-color: #fff !important;
+  -webkit-box-shadow:0 0 0 50px white inset; /* Change the color to your own background color */
+    -webkit-text-fill-color: #333;
+}
+
+input:-webkit-autofill:focus {
+  background-color: #fff !important;
+    -webkit-box-shadow: /*your box-shadow*/,0 0 0 50px white inset;
+    -webkit-text-fill-color: #333;
+} 
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.button:hover {
+  background-color: #d25e31;
+}
+
+.button {
+  margin-right: 2rem;
+}
+
+.nav-right {
+  float: right;
+}

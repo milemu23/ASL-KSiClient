@@ -1,0 +1,36 @@
+doctype html
+html
+  head
+    title Welcome
+    link(rel='stylesheet', href='/stylesheets/foundation.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href="http://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css")
+body
+    .top-bar
+      .top-bar-left
+        ul.dropdown.menu(data-dropdown-menu='')
+          li.menu-text 
+            img(src="../images/kafferlin-strategies-logo.png", alt="Kafferlin Strategies Logo")
+
+      .top-bar-right
+        ul.menu
+          if user
+            li
+              a(href='/users/logout') Logout
+          if user
+            li(class=(title == 'Staff Area' ? 'active' : ''))
+              a(href='/') Staff Area
+          if !user
+            li(class=('nav-right'))
+              a(href='/users/login') Login
+            li(class=('nav-right'))
+              a(href='/users/register') Register
+
+  != messages()
+
+    block content
+
+    script(src='../javascripts/vendor/jquery.js')
+    script(src='../javascripts/vendor/foundation.js')
+    script(src='../javascripts/f-app.js')
+    script(src='../javascripts/vendor/what-input.js')
