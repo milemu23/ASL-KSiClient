@@ -18,14 +18,14 @@ body
             li
               a(href='/users/logout') Logout
           if user
-            li(class=(title == 'Staff Area' ? 'active' : ''))
-              a(href='/') Staff Area
+            li(class=(title == 'Dashboard' ? 'active' : ''))
+              a(href='/') Dashboard
           if !user
             li(class=('nav-right'))
               a(href='/users/login') Login
             li(class=('nav-right'))
               a(href='/users/register') Register
-
+        
   != messages()
 
     block content

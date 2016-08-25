@@ -3,8 +3,11 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', ensureAuthenticated, function(req, res, next) {
-  res.render('index', { title: 'Staff Area' });
+  res.render('index', { 
+    title: 'My Dashboard' 
+  });
 });
+
 
 //user can only access Members page if logged in
 //redirect to the login page if the user isn't registered

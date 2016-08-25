@@ -101,6 +101,7 @@ router.post('/register', function(req, res, next) {
       username: username,
       password: password
     });
+    
     //create the user
     User.createUser(newUser, function(err, user){
       if(err) throw err;

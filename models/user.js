@@ -1,11 +1,6 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 
-//connect to database
-mongoose.connect('mongodb://ks-db:KeyLime23@ds023475.mlab.com:23475/ks-db');
-
-var db = mongoose.connection;
-
 //User Schema
 var UserSchema = mongoose.Schema({
     username: {

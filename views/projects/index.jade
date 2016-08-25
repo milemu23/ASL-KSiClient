@@ -1,0 +1,20 @@
+extends ../layout
+
+block content
+
+ ul.menu(role='navigation' title='Side Navigation')
+     li
+      a(href='/projects') Projects
+     li
+      a(href='/projects/add') Add Project
+
+ .row.column
+    h1 Kafferlin Strategies Projects
+
+ .row.small-up-2.medium-up-3.large-up-4.column
+  ul
+   each project in projects
+    li #{project.projectImage}
+    li #{project.projectTitle}
+    li #{project.projectClient}
+    li #{project.projectDesc}

@@ -14,6 +14,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var multer = require('multer');
 //handle file uploads - setting destination of where to load
 var upload = multer({dest: './uploads'});
+//success or fail message
 var flash = require('connect-flash');
 //encrypting passwords
 var bcrypt = require('bcryptjs');
@@ -21,16 +22,27 @@ var bcrypt = require('bcryptjs');
 var mongo = require('mongodb');
 //used to connect to database
 var mongoose = require('mongoose');
-//database variable
-var db = mongoose.connection;
 
 //setting the routes for the application
 var routes = require('./routes/index');
 //used for logging in members
 var users = require('./routes/users');
+var projects = require('./routes/projects');
 
 //initiate app
 var app = express();
+
+mongoose.connect('mongodb://ks-db:KeyLime23@ds023475.mlab.com:23475/ks-db');
+//database variable
+var db = mongoose.connection;
+
+db.on('error', function(msg) {
+  console.log('Mongoose connection error %s', msg);
+});
+
+db.once('open', function() {
+  console.log('Mongoose connection established');
+});
 
 // view engine setup
 //using jade
@@ -90,6 +102,8 @@ app.get('*', function(req, res, next){
 
 app.use('/', routes);
 app.use('/users', users);
+//projects
+app.use('/projects', projects);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
