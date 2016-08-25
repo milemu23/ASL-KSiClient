@@ -19,31 +19,32 @@ router.get('/', function (req, res) {
 });
 
 //render the add project page
-router.get('/add', function(req, res) {
+router.get('/add', function(req, res, next) {
     //create new project
-        
-
   res.render('projects/add');
 });
 
-router.post('/add', function (req, res) {
+router.post('/add', function (req, res, next) {
     var projectTitle = req.body.projectTitle;
     var projectClient = req.body.projectClient;
     var projectDesc = req.body.projectDesc;
     var projectImage = req.body.projectImage;
 
-//res.status(404).send('create project')
+    //Form validator
+    //make sure the required fields are not empty and are vaild
+    req.checkBody('projectTitle', 'Project Title is required').notEmpty();
+    req.checkBody('projectClient', 'Client name is required').notEmpty();
+    req.checkBody('projectDesc', 'Project description is required').notEmpty();
+
+    //Check Errors
+     var errors = req.validationErrors();
+
     var newProject = new Project({
         projectTitle: projectTitle,
         projectClient: projectClient,
         projectDesc: projectDesc,
         projectImage: projectImage
     });
-
-  //Check Errors
-  //var errors = req.validationErrors();
-
-        
     
     //create the project
    Project.create( newProject , function(err, project) {
@@ -51,7 +52,8 @@ router.post('/add', function (req, res) {
             console.log(err);
             res.render('500');
         } else {
-            console.log(project)
+            console.log(project);
+            console.log(req.body);
         }
     });
 
