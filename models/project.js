@@ -1,15 +1,17 @@
 var mongoose = require('mongoose');
 
-var schema = mongoose.Schema ({
+var ProjectSchema = mongoose.Schema ({
     projectImage: {
         type: String
     },
     projectTitle: {
         type: String,
+        required: true,
         default: ""
     },
     projectClient: {
         type: String,
+        required: true,
         default: ""
     },
     projectDesc: {
@@ -17,5 +19,5 @@ var schema = mongoose.Schema ({
     }
 });
 
-var Project = mongoose.model( 'projects', schema );
+var Project = mongoose.model( 'projects', ProjectSchema );
 module.exports = Project;

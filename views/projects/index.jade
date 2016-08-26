@@ -14,7 +14,8 @@ block content
  .row.small-up-2.medium-up-3.large-up-4.column
   ul
    each project in projects
-    li #{project.projectImage}
+    li.thumbnail 
+      img(src="./uploads/projects/#{project.projectImage}")
     li #{project.projectTitle}
     li #{project.projectClient}
     li #{project.projectDesc}

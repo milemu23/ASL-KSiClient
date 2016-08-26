@@ -1,13 +1,15 @@
 var express = require('express');
 var router = express.Router();
-var multer = require('multer');
+var multer = require('multer'),
+	bodyParser = require('body-parser'),
+	path = require('path');
 //handle file uploads - setting destination of where to load
-var upload = multer({dest: './uploads/projects'});
 
+var upload = multer({ dest: './uploads/projects/'});
 //links to project.js
 var Project = require('../models/project');
 
-router.get('/', function (req, res) {
+router.get('/', function (req, res, next) {
    Project.find({}).exec( function(err, projects) {
        if (err) {
            console.log("There is an error!");
@@ -24,7 +26,7 @@ router.get('/add', function(req, res, next) {
   res.render('projects/add');
 });
 
-router.post('/add', function (req, res, next) {
+router.post('/add', upload.single('projectImage'), function (req, res, next) {
     var projectTitle = req.body.projectTitle;
     var projectClient = req.body.projectClient;
     var projectDesc = req.body.projectDesc;
@@ -36,24 +38,30 @@ router.post('/add', function (req, res, next) {
     req.checkBody('projectClient', 'Client name is required').notEmpty();
     req.checkBody('projectDesc', 'Project description is required').notEmpty();
 
+    //check image uploads
+    if(req.file){
+        var projectImageName = req.file.originalname;
+    } else {
+        var projectImageName = 'noimage.jpg';
+    }  
     //Check Errors
-     var errors = req.validationErrors();
+    var errors = req.validationErrors();
 
     var newProject = new Project({
         projectTitle: projectTitle,
         projectClient: projectClient,
         projectDesc: projectDesc,
-        projectImage: projectImage
+        projectImage: projectImageName
     });
     
     //create the project
-   Project.create( newProject , function(err, project) {
+   Project.create(newProject, function(err, project) {
         if(err) {
-            console.log(err);
-            res.render('500');
+            res.render('/add', {
+            errors: errors
+        });
         } else {
             console.log(project);
-            console.log(req.body);
         }
     });
 
@@ -61,8 +69,8 @@ router.post('/add', function (req, res, next) {
     req.flash('success', 'Project has been added.');
 
     //redirect
-    res.location('/projects');
-    res.redirect('/projects');
+   //res.location('/projects/add');
+    //res.redirect('/projects');
 
 });
    

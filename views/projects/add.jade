@@ -17,7 +17,7 @@ block content
                 .alert.callout
                     i.fi-alert
                     span  #{error.msg}
-        form(method='post', action='/projects/add' enctype='multipart/form-data')
+        form(method='post', action='/projects/add', enctype='multipart/form-data')
             .form-group
                 label Project Name
                     input.form-control(name='projectTitle', type='text', placeholder='Enter project name here')
@@ -26,7 +26,7 @@ block content
                     input.form-control(name='projectClient', type='text', placeholder='Enter client name here')
             .form-group
                 label Project Description
-                    input.form-control(name='projectDesc', type='textarea', placeholder='Enter description here')
+                    input.form-control(name='projectDesc', type='text', placeholder='Enter description here')
             .form-group
                 label Project Image
                     input.form-control(name='projectImage', type='file')
