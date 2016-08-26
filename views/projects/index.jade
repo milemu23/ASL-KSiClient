@@ -13,16 +13,17 @@ block content
 
  .row
     each project in projects
-       div.projects.large-4.small-1.columns.panel(data-equalizer-watch)
+       div.projects.large-4.small-1.columns(data-equalizer-watch)
         ul
-            li.thumbnail 
+            li.image
              img(src="../../uploads/projects/#{project.projectImage}")
-            li #{project.projectTitle}
+            li 
+             a(href="/projects/#{project.id}") #{project.projectTitle}
             li #{project.projectClient}
             li #{project.projectDesc}
 
         ul
             li 
-             a(href='/projects/#{project._id}/edit') Edit
+             a(href='../projects/#{project.id}/edit') Edit
             li 
              a(href='') Delete

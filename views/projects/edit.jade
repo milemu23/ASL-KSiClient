@@ -1,6 +1,31 @@
-extends ../layout
+doctype html
+html
+  head
+    title Welcome
+    link(rel='stylesheet', href='/stylesheets/foundation.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href="http://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css")
+body
+    .top-bar
+      .top-bar-left
+        ul.dropdown.menu(data-dropdown-menu='')
+          li.menu-text 
+            img(src="/images/kafferlin-strategies-logo.png", alt="Kafferlin Strategies Logo")
 
-block content
+      .top-bar-right
+        ul.menu
+          if user
+            li
+              a(href='/users/logout') Logout
+          if user
+            li(class=(title == 'Dashboard' ? 'active' : ''))
+              a(href='/') Dashboard
+          if !user
+            li(class=('nav-right'))
+              a(href='/users/login') Login
+            li(class=('nav-right'))
+              a(href='/users/register') Register
+
 
  ul.menu(role='navigation' title='Side Navigation')
      li
@@ -17,18 +42,24 @@ block content
                 .alert.callout
                     i.fi-alert
                     span  #{error.msg}
-        form(method='post', action='/projects/#{project.id}', enctype='multipart/form-data')
+        form(method='post', action='projects/#{project.id}', enctype='multipart/form-data')
             input(type='hidden' name='_method' value='put')
             .form-group
                 label Project Name
-                    input.form-control(name='projectTitle', type='text', placeholder='Enter project name here')
+                    input.form-control(name='projectTitle', value='#{project.projectTitle}', type='text', placeholder='Enter project name here')
             .form-group
                 label Client Name
-                    input.form-control(name='projectClient', type='text', placeholder='Enter client name here')
+                    input.form-control(name='projectClient', value='#{project.projectClient}', type='text', placeholder='Enter client name here')
             .form-group
                 label Project Description
-                    input.form-control(name='projectDesc', type='text', placeholder='Enter description here')
+                    input.form-control(name='projectDesc', value='#{project.projectDesc}', type='text', placeholder='Enter description here')
             .form-group
                 label Project Image
                     input.form-control(name='projectImage', type='file')
             input.button(type='submit', name='submit', value='Save')
+
+
+    script(src='/javascripts/vendor/jquery.js')
+    script(src='/javascripts/vendor/foundation.js')
+    script(src='/javascripts/f-app.js')
+    script(src='/javascripts/vendor/what-input.js')

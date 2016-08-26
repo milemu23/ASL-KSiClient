@@ -1,0 +1,28 @@
+extends ../layout
+
+block content
+
+ ul.menu(role='navigation' title='Side Navigation')
+     li
+      a(href='/projects') Projects
+     li
+      a(href='/projects/add') Add Project
+
+ .row.column
+    h1 Kafferlin Strategies Projects
+
+ .row
+   div.projects.large-6.small-1.columns(data-equalizer-watch)
+    ul
+        li.thumbnail 
+            img(src="../../uploads/projects/#{project.projectImage}")
+        li 
+         h2 #{project.projectTitle}
+        li #{project.projectClient}
+        li #{project.projectDesc}
+
+    ul
+        li 
+            a(href='/projects/#{project._id}/edit') Edit
+        li 
+            a(href='') Delete

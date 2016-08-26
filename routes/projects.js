@@ -19,7 +19,7 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage })
 
 //links to project.js
-var Project = require('../models/project');
+var Project = require('./../models/project');
 
 router.get('/', function (req, res, next) {
    Project.find({}).exec( function(err, projects) {
@@ -33,7 +33,7 @@ router.get('/', function (req, res, next) {
 });
 
 //render the add project page
-router.get('/add', function(req, res, next) {
+router.get('/add', function(req, res) {
     //create new project
   res.render('projects/add');
 });
@@ -87,9 +87,19 @@ router.post('/add', upload.single('projectImage'), function (req, res, next) {
 });
 
 router.get('/:id', function(req, res) {
-    var project = Project.find( req.params.id);
-    res.render('projects/index', {project: project});
+  Project.findById(req.params.id).exec(function(err, project) {
+   if(err) {
+            res.render('500', {
+            errors: errors
+        });
+    } else if (!project) {
+      res.render('404');
+    } else {
+      res.render('projects/show', {project: project});
+    }
+  });
 });
+
 
 router.get('/:id/edit', function(req, res) {
     Project.findById(req.params.id).exec(function(err,project) {
@@ -97,17 +107,43 @@ router.get('/:id/edit', function(req, res) {
             res.render('500', {
             errors: errors
         });
-        }else if (!project) {
+        } else if (!project) {
             res.render('404');
         } else {
-            res.render('projects/edit', {project: project});
+            res.render('projects/edit', { project: project });
         }
     });
 });
 
 router.put('/:id', function(req, res) {
-    console.log( req.body );
-    res.status(404).send('update project ' + req.params.id);
+    Project.findById(req.params.id).exec(function(err, post) {
+        if(err) {
+            res.render('500', {
+            errors: errors
+        });
+        } else if (!project) {
+            res.render('404');
+        } else {
+            //update properties
+            project.projectTitle = req.body.projectTitle;
+            project.projectClient = req.body.projectClient;
+            project.projectDesc = req.body.projectDesc;
+
+            //save the post
+            project.save(function(err) {
+                if(err) {
+                res.render('500', {
+                errors: errors
+            });
+                } else {
+            //update Project
+            console.log('SAVED!!!!');
+            req.flash('success', 'Project updated.');
+            res.redirect('/projects/' + project.id);
+            }
+         });
+      }
+    });
 });
 
 router.delete('/:id', function(req, res) {

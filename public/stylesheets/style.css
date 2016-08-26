@@ -61,3 +61,9 @@ input:-webkit-autofill:active {
 .projects ul {
   list-style: none;
 }
+
+.image {
+  padding: .2rem;
+  border: 3px solid #fff;
+  background: #fff;
+}
