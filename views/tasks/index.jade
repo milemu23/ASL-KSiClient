@@ -1,0 +1,34 @@
+extends ../layout
+
+block content
+
+ ul.menu(role='navigation' title='Side Navigation')
+     li
+      a.button.ks(href='/tasks') Tasks
+     li
+      a.button.ks(href='/tasks/add') Add Task
+
+ .row
+    h1 Kafferlin Strategies Projects
+
+ if message
+        .alert.callout
+            i.fi-alert
+            span  #{success.msg}
+
+ .row
+    each project in projects
+       div.projects.large-4.small-1.columns(data-equalizer-watch)
+        ul
+            li.image
+             img(src="../../uploads/projects/#{project.projectImage}")
+            li 
+             a(href="/projects/#{project.id}") 
+              h2 #{project.projectTitle}
+            li #{project.projectClient}
+            li #{project.projectDesc}
+
+        ul
+            li 
+             a.button.secondary(href='../projects/#{project.id}/edit') Edit
+
