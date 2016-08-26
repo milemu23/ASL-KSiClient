@@ -1,13 +1,39 @@
-extends ../layout
+doctype html
+html
+  head
+    title Welcome
+    link(rel='stylesheet', href='/stylesheets/foundation.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href="http://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css")
+body
+    .top-bar
+      .top-bar-left
+        ul.dropdown.menu(data-dropdown-menu='')
+          li.menu-text 
+            img(src="/images/kafferlin-strategies-logo.png", alt="Kafferlin Strategies Logo")
 
-block content
+      .top-bar-right
+        ul.menu
+          if user
+            li
+              a(href='/users/logout') Logout
+          if user
+            li(class=(title == 'Dashboard' ? 'active' : ''))
+              a(href='/') Dashboard
+          if !user
+            li(class=('nav-right'))
+              a(href='/users/login') Login
+            li(class=('nav-right'))
+              a(href='/users/register') Register
+        
+  != messages()
 
 
  ul.menu(role='navigation' title='Side Navigation')
      li
-      a(href='/projects') Projects
+      a.button.ks(href='/projects') Projects
      li
-      a(href='/projects/add') Add Project
+      a.button.ks(href='/projects/add') Add Project
 
  .row.column
     h1 Edit Project
@@ -32,4 +58,18 @@ block content
             .form-group
                 label Project Image
                     input.form-control(name='projectImage', type='file')
-            input.button(type='submit', name='submit', value='Save')
+            div.savebtn
+               input.button.default(type='submit', name='submit', value='Save')
+             
+        div.deletebtn
+         form(name='deletepost', action='/projects/#{project.id}', method='post')
+            input(type='hidden', name='_method', value='delete')
+            a.button.alert(href='#', onclick='document.deletepost.submit(); return false;') Delete
+             noscript
+                button.btn.btn-default.text-danger(type='submit') Delete
+
+
+    script(src='/javascripts/vendor/jquery.js')
+    script(src='/javascripts/vendor/foundation.js')
+    script(src='/javascripts/f-app.js')
+    script(src='/javascripts/vendor/what-input.js')

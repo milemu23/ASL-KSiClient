@@ -4,12 +4,17 @@ block content
 
  ul.menu(role='navigation' title='Side Navigation')
      li
-      a(href='/projects') Projects
+      a.button.ks(href='/projects') Projects
      li
-      a(href='/projects/add') Add Project
+      a.button.ks(href='/projects/add') Add Project
 
- .row.column
+ .row
     h1 Kafferlin Strategies Projects
+
+ if message
+        .alert.callout
+            i.fi-alert
+            span  #{success.msg}
 
  .row
     each project in projects
@@ -18,12 +23,12 @@ block content
             li.image
              img(src="../../uploads/projects/#{project.projectImage}")
             li 
-             a(href="/projects/#{project.id}") #{project.projectTitle}
+             a(href="/projects/#{project.id}") 
+              h2 #{project.projectTitle}
             li #{project.projectClient}
             li #{project.projectDesc}
 
         ul
             li 
-             a(href='../projects/#{project.id}/edit') Edit
-            li 
-             a(href='') Delete
+             a.button.secondary(href='../projects/#{project.id}/edit') Edit
+

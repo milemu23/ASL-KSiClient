@@ -46,10 +46,6 @@ input:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s;
 }
 
-.button:hover {
-  background-color: #d25e31;
-}
-
 .button {
   margin-right: 2rem;
 }
@@ -66,4 +62,36 @@ input:-webkit-autofill:active {
   padding: .2rem;
   border: 3px solid #fff;
   background: #fff;
+}
+
+.deletebtn {
+  position: relative;
+  left: 12rem;
+}
+
+
+.alert .button:hover {
+  background-color: #d25e31;
+}
+
+.savebtn {
+  position: absolute;
+}
+
+.savebtn input {
+  width: 10rem;
+}
+
+h2  {
+  color: #666;
+}
+
+h2:hover {
+  color: #333;
+}
+
+.button .ks {
+  width: 10rem;
+  background: #66aabe;
+  margin: 2rem;
 }

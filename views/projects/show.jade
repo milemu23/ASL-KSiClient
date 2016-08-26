@@ -4,9 +4,9 @@ block content
 
  ul.menu(role='navigation' title='Side Navigation')
      li
-      a(href='/projects') Projects
+      a.button.ks(href='/projects') Projects
      li
-      a(href='/projects/add') Add Project
+      a.button.ks(href='/projects/add') Add Project
 
  .row.column
     h1 Kafferlin Strategies Projects
@@ -23,6 +23,4 @@ block content
 
     ul
         li 
-            a(href='/projects/#{project._id}/edit') Edit
-        li 
-            a(href='') Delete
+            a.button.secondary(href='../projects/#{project.id}/edit') Edit

@@ -7,8 +7,6 @@ var multer = require('multer'),
 	path = require('path');
 //handle file uploads - setting destination of where to load
 
-var upload = multer({ dest: './public/uploads/projects/'});
-
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './public/uploads/projects')
@@ -25,9 +23,11 @@ var Project = require('./../models/project');
 
 router.get('/', function (req, res, next) {
    Project.find({}).exec( function(err, projects) {
-       if (err) {
-           console.log("There is an error!");
-           res.render('500');
+       if(err) {
+            res.render('error', {
+                error: err,
+                message: err.message
+            });
        } else {
            res.render('projects/index', { projects: projects }); 
        }
@@ -71,9 +71,10 @@ router.post('/add', upload.single('projectImage'), function (req, res, next) {
     //create the project
    Project.create(newProject, function(err, project) {
         if(err) {
-            res.render('/add', {
-            errors: errors
-        });
+            res.render('error', {
+                error: err,
+                message: err.message
+            });
         } else {
             console.log(project);
         }
@@ -91,9 +92,10 @@ router.post('/add', upload.single('projectImage'), function (req, res, next) {
 //project detail
 router.get('/:id', function(req, res) {
   Project.findById(req.params.id).exec(function(err, project) {
-   if(err) {
-            res.render('500', {
-            errors: errors
+    if(err) {
+        res.render('error', {
+            error: err,
+            message: err.message
         });
     } else if (!project) {
       res.render('404');
@@ -107,9 +109,10 @@ router.get('/:id', function(req, res) {
 router.get('/:id/edit', function(req, res) {
     Project.findById(req.params.id).exec(function(err,project) {
          if(err) {
-            res.render('500', {
-            errors: errors
-        });
+            res.render('error', {
+                error: err,
+                message: err.message
+            });
         } else if (!project) {
             res.render('404');
         } else {
@@ -120,13 +123,12 @@ router.get('/:id/edit', function(req, res) {
 
 
 router.post('/:id', upload.single('projectImage'), function(req, res) {
-    debugger;
-    console.log(req.params.id);
     Project.findById(req.params.id).exec(function(err, project) {
         if(err) {
-            res.render('500', {
-            errors: errors
-        });
+            res.render('error', {
+                error: err,
+                message: err.message
+            });
         } else if (!project) {
             res.render('404');
         } else {
@@ -144,7 +146,6 @@ router.post('/:id', upload.single('projectImage'), function(req, res) {
                     });
                 } else {
                     //update Project
-                    console.log('SAVED!!!!');
                     req.flash('success', 'Project updated.');
                     res.redirect('/projects/' + project.id);
                 }
@@ -153,7 +154,20 @@ router.post('/:id', upload.single('projectImage'), function(req, res) {
     });
 });
 
-
+router.delete('/:id', function(req, res) {
+    console.log(req.params.id);
+  Project.findByIdAndRemove(req.params.id).exec(function(err) {
+    if(err) {
+        res.render('error', {
+            error: err,
+            message: err.message
+        });
+    } else {
+      req.flash('success', 'Project deleted.');
+      res.redirect('/projects');
+    }
+  });
+});
    
 
 module.exports = router;
