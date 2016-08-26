@@ -11,11 +11,18 @@ block content
  .row.column
     h1 Kafferlin Strategies Projects
 
- .row.small-up-2.medium-up-3.large-up-4.column
-  ul
-   each project in projects
-    li.thumbnail 
-      img(src="./uploads/projects/#{project.projectImage}")
-    li #{project.projectTitle}
-    li #{project.projectClient}
-    li #{project.projectDesc}
+ .row
+    each project in projects
+       div.projects.large-4.small-1.columns.panel(data-equalizer-watch)
+        ul
+            li.thumbnail 
+             img(src="../../uploads/projects/#{project.projectImage}")
+            li #{project.projectTitle}
+            li #{project.projectClient}
+            li #{project.projectDesc}
+
+        ul
+            li 
+             a(href='/projects/#{project._id}/edit') Edit
+            li 
+             a(href='') Delete

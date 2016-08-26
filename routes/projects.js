@@ -5,7 +5,19 @@ var multer = require('multer'),
 	path = require('path');
 //handle file uploads - setting destination of where to load
 
-var upload = multer({ dest: './uploads/projects/'});
+var upload = multer({ dest: './public/uploads/projects/'});
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './public/uploads/projects')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname)
+  }
+})
+
+var upload = multer({ storage: storage })
+
 //links to project.js
 var Project = require('../models/project');
 
@@ -30,7 +42,7 @@ router.post('/add', upload.single('projectImage'), function (req, res, next) {
     var projectTitle = req.body.projectTitle;
     var projectClient = req.body.projectClient;
     var projectDesc = req.body.projectDesc;
-    var projectImage = req.body.projectImage;
+    
 
     //Form validator
     //make sure the required fields are not empty and are vaild
@@ -69,9 +81,37 @@ router.post('/add', upload.single('projectImage'), function (req, res, next) {
     req.flash('success', 'Project has been added.');
 
     //redirect
-   //res.location('/projects/add');
-    //res.redirect('/projects');
+   res.location('/projects/add');
+    res.redirect('/projects');
 
+});
+
+router.get('/:id', function(req, res) {
+    var project = Project.find( req.params.id);
+    res.render('projects/index', {project: project});
+});
+
+router.get('/:id/edit', function(req, res) {
+    Project.findById(req.params.id).exec(function(err,project) {
+         if(err) {
+            res.render('500', {
+            errors: errors
+        });
+        }else if (!project) {
+            res.render('404');
+        } else {
+            res.render('projects/edit', {project: project});
+        }
+    });
+});
+
+router.put('/:id', function(req, res) {
+    console.log( req.body );
+    res.status(404).send('update project ' + req.params.id);
+});
+
+router.delete('/:id', function(req, res) {
+    res.status(404).send('delete post ' + req.params.id)
 });
    
 

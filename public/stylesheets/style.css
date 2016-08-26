@@ -35,7 +35,7 @@ input:-webkit-autofill {
 
 input:-webkit-autofill:focus {
   background-color: #fff !important;
-    -webkit-box-shadow: /*your box-shadow*/,0 0 0 50px white inset;
+    -webkit-box-shadow: /*your box-shadow*/0 0 0 50px white inset;
     -webkit-text-fill-color: #333;
 } 
 
@@ -56,4 +56,8 @@ input:-webkit-autofill:active {
 
 .nav-right {
   float: right;
+}
+
+.projects ul {
+  list-style: none;
 }

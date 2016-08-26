@@ -22,6 +22,7 @@ var bcrypt = require('bcryptjs');
 var mongo = require('mongodb');
 //used to connect to database
 var mongoose = require('mongoose');
+var methodOverride = require('method-override');
 
 //setting the routes for the application
 var routes = require('./routes/index');
@@ -55,6 +56,16 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.use(methodOverride(function(req, res){
+  if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+    // look in urlencoded POST bodies and delete it
+    var method = req.body._method
+    delete req.body._method
+    return method
+  }
+}));
+
 //setting public as the static file
 app.use(express.static(path.join(__dirname, 'public')));
 
