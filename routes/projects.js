@@ -1,7 +1,9 @@
+"use strict";
+
 var express = require('express');
 var router = express.Router();
+var methodOverride = require('method-override');
 var multer = require('multer'),
-	bodyParser = require('body-parser'),
 	path = require('path');
 //handle file uploads - setting destination of where to load
 
@@ -86,6 +88,7 @@ router.post('/add', upload.single('projectImage'), function (req, res, next) {
 
 });
 
+//project detail
 router.get('/:id', function(req, res) {
   Project.findById(req.params.id).exec(function(err, project) {
    if(err) {
@@ -115,8 +118,11 @@ router.get('/:id/edit', function(req, res) {
     });
 });
 
-router.put('/:id', function(req, res) {
-    Project.findById(req.params.id).exec(function(err, post) {
+
+router.post('/:id', upload.single('projectImage'), function(req, res) {
+    debugger;
+    console.log(req.params.id);
+    Project.findById(req.params.id).exec(function(err, project) {
         if(err) {
             res.render('500', {
             errors: errors
@@ -132,23 +138,22 @@ router.put('/:id', function(req, res) {
             //save the post
             project.save(function(err) {
                 if(err) {
-                res.render('500', {
-                errors: errors
-            });
+                    res.render('error', {
+                        error: err,
+                        message: err.message
+                    });
                 } else {
-            //update Project
-            console.log('SAVED!!!!');
-            req.flash('success', 'Project updated.');
-            res.redirect('/projects/' + project.id);
-            }
+                    //update Project
+                    console.log('SAVED!!!!');
+                    req.flash('success', 'Project updated.');
+                    res.redirect('/projects/' + project.id);
+                }
          });
       }
     });
 });
 
-router.delete('/:id', function(req, res) {
-    res.status(404).send('delete post ' + req.params.id)
-});
+
    
 
 module.exports = router;
