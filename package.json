@@ -27,9 +27,10 @@
     "passport": "*",
     "passport-http": "*",
     "passport-local": "*",
-    "pseudorandombytes": "^2.0.0",
     "pug": "*",
     "serve-favicon": "~2.3.0",
-    "util": "^0.10.3"
+    "util": "^0.10.3",
+    "request": "^2.74.0",
+    "serve-favicon": "~2.3.0"
   }
 }
