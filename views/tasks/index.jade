@@ -5,11 +5,9 @@ block content
  ul.menu(role='navigation' title='Side Navigation')
      li
       a.button.ks(href='/tasks') Tasks
-     li
-      a.button.ks(href='/tasks/add') Add Task
 
  .row
-    h1 Kafferlin Strategies Projects
+    h1  Tasks
 
  if message
         .alert.callout
@@ -17,18 +15,16 @@ block content
             span  #{success.msg}
 
  .row
-    each project in projects
-       div.projects.large-4.small-1.columns(data-equalizer-watch)
-        ul
-            li.image
-             img(src="../../uploads/projects/#{project.projectImage}")
-            li 
-             a(href="/projects/#{project.id}") 
-              h2 #{project.projectTitle}
-            li #{project.projectClient}
-            li #{project.projectDesc}
+    table
+        thead
+            tr
+                th Task
+                th Started at
+                th Finished at
+                th Actions
 
-        ul
-            li 
-             a.button.secondary(href='../projects/#{project.id}/edit') Edit
+
+
+    
+    
 

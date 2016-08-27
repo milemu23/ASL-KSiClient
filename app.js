@@ -30,6 +30,7 @@ var routes = require('./routes/index');
 //used for logging in members
 var users = require('./routes/users');
 var projects = require('./routes/projects');
+var tasks = require('./routes/tasks')
 
 //initiate app
 var app = express();
@@ -116,6 +117,7 @@ app.use('/', routes);
 app.use('/users', users);
 //projects
 app.use('/projects', projects);
+app.use('/tasks', tasks);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

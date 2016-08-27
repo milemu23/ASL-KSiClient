@@ -2,11 +2,12 @@
 
 var express = require('express');
 var router = express.Router();
+var taskEvents = require('../task-events');
+var fs = require('fs');
 var methodOverride = require('method-override');
 var multer = require('multer'),
 	path = require('path');
 //handle file uploads - setting destination of where to load
-
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './public/uploads/projects')
@@ -168,6 +169,7 @@ router.delete('/:id', function(req, res) {
     }
   });
 });
+
    
 
 module.exports = router;
