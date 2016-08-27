@@ -24,7 +24,6 @@ var mongo = require('mongodb');
 //used to connect to database
 var mongoose = require('mongoose');
 var methodOverride = require('method-override');
-var request = require('request');
 
 //setting the routes for the application
 var routes = require('./routes/index');

@@ -14,7 +14,7 @@ block content
             i.fi-alert
             span  #{success.msg}
 
- .row
+ .row.tasks
     table
         thead
             tr
@@ -22,6 +22,17 @@ block content
                 th Started at
                 th Finished at
                 th Actions
+        tbody
+            if tasks
+            - for (var x = 0; x <tasks.length; x++)
+                tr
+                    td #{tasks[x].name}
+                    td(id='started-at-#{x}')
+                    td(id='finished-at-#{x}')
+                    td
+                        a(href='#' onclick='startTimer(#{x})') Start
+                    td 
+                        a(href='#' onclick='stopTimer(#{x})') End
 
 
 

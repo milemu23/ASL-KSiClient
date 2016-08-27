@@ -1,13 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var taskEvents = require('../task-events');
-var fs = require('fs');
 
+var taskEvents = require('../task-events');
 var Task = require('./../models/task');
 
 //TASKS
-router.get('/', function(req, res) {
-   console.log('get tasks');
+router.get('/', function(req, res, next) {
     Task.find({}).exec( function(err, tasks) {
        if(err) {
             res.render('error', {
