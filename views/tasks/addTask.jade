@@ -1,0 +1,26 @@
+extends ../layout
+
+block content
+
+ ul.menu(role='navigation' title='Side Navigation')
+     li
+      a(href='/projects') Projects
+     li
+      a(href='/tasks') Projects
+     li
+      a(href='/tasks/add') Add Task
+
+ .row.column
+    h1 New Task
+    p Add a new task.
+        
+        if errors
+            each error, i in errors
+                .alert.callout
+                    i.fi-alert
+                    span  #{error.msg}
+        form(method='post', action='/tasks/addTask')
+            .form-group
+                label Task Name
+                    input.form-control(name='name', type='text', placeholder='Enter task name here')
+            input.button(type='submit', name='add', value='Add')

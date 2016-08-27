@@ -4,7 +4,13 @@ block content
 
  ul.menu(role='navigation' title='Side Navigation')
      li
-      a.button.ks(href='/tasks') Tasks
+      a.button.ks(href='/projects') Projects
+     li
+      a.button.ks(href='/projects/add') Add Project
+     li
+      a.button.ks(href='/tasks/') Tasks
+     li
+      a.button.ks(href='/tasks/addTask') Add Task
 
  .row
     h1  Tasks
@@ -30,8 +36,7 @@ block content
                     td(id='started-at-#{x}')
                     td(id='finished-at-#{x}')
                     td
-                        a(href='#' onclick='startTimer(#{x})') Start
-                    td 
+                        a(href='#' onclick='startTimer(#{x})') Start  |  
                         a(href='#' onclick='stopTimer(#{x})') End
 
 

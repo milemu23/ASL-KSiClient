@@ -1,0 +1,67 @@
+doctype html
+html
+  head
+    title Welcome
+    link(rel='stylesheet', href='/stylesheets/foundation.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href="http://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css")
+body
+    .top-bar
+      .top-bar-left
+        ul.dropdown.menu(data-dropdown-menu='')
+          li.menu-text 
+            img(src="/images/kafferlin-strategies-logo.png", alt="Kafferlin Strategies Logo")
+
+      .top-bar-right
+        ul.menu
+          if user
+            li
+              a(href='/users/logout') Logout
+          if user
+            li(class=(title == 'Dashboard' ? 'active' : ''))
+              a(href='/') Dashboard
+          if !user
+            li(class=('nav-right'))
+              a(href='/users/login') Login
+            li(class=('nav-right'))
+              a(href='/users/register') Register
+        
+  != messages()
+
+ ul.menu(role='navigation' title='Side Navigation')
+     li
+      a(href='/projects') Projects
+     li
+      a(href='/tasks') Tasks
+     li
+      a(href='/tasks/addTask') Add Task
+
+ .row.column
+    h1 New Task
+    p Add a new project using the form below.
+        
+        if errors
+            each error, i in errors
+                .alert.callout
+                    i.fi-alert
+                    span  #{error.msg}
+        form(method='post', action='/tasks/#{task.id')
+            input(type='hidden' name='_method' value='put')
+            .form-group
+                label Task Name
+                    input.form-control(name='name', type='text', placeholder='Enter task name here')
+            div.savebtn
+                input.button(type='submit', name='add', value='Add')
+
+
+        div.deletebtn
+         form(name='deletepost', action='/tasks/#{task.id}', method='post')
+            input(type='hidden', name='_method', value='delete')
+            a.button.alert(href='#', onclick='document.deletepost.submit(); return false;') Delete
+             noscript
+                button.btn.btn-default.text-danger(type='submit') Delete
+
+    script(src='/javascripts/vendor/jquery.js')
+    script(src='/javascripts/vendor/foundation.js')
+    script(src='/javascripts/f-app.js')
+    script(src='/javascripts/vendor/what-input.js')

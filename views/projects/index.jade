@@ -7,9 +7,13 @@ block content
       a.button.ks(href='/projects') Projects
      li
       a.button.ks(href='/projects/add') Add Project
+     li
+      a.button.ks(href='/tasks/') Tasks
+     li
+      a.button.ks(href='/tasks/addTask') Add Task
 
  .row
-    h1 Kafferlin Strategies Projects
+    h1 Projects
 
  if message
         .alert.callout
@@ -31,4 +35,6 @@ block content
         ul
             li 
              a.button.secondary(href='../projects/#{project.id}/edit') Edit
+
+
 

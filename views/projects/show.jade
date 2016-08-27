@@ -7,9 +7,11 @@ block content
       a.button.ks(href='/projects') Projects
      li
       a.button.ks(href='/projects/add') Add Project
+     li
+      a.button.ks(href='/tasks/') Tasks
+     li
+      a.button.ks(href='/tasks/addTask') Add Task
 
- .row.column
-    h1 Kafferlin Strategies Projects
 
  .row
    div.projects.large-6.small-1.columns(data-equalizer-watch)
@@ -24,3 +26,9 @@ block content
     ul
         li 
             a.button.secondary(href='../projects/#{project.id}/edit') Edit
+
+ .row
+    ul
+    if tasks
+     - for (var x = 0; x <tasks.length; x++)
+        li #{tasks[x].name}
