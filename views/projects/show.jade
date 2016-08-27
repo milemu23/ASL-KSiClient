@@ -26,9 +26,3 @@ block content
     ul
         li 
             a.button.secondary(href='../projects/#{project.id}/edit') Edit
-
- .row
-    ul
-    if tasks
-     - for (var x = 0; x <tasks.length; x++)
-        li #{tasks[x].name}

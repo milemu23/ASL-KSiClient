@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var taskEvents = require('../task-events');
+var taskEvents = require('./../task-events');
 var Task = require('./../models/task');
 
 //TASKS
@@ -56,8 +56,8 @@ router.post('/addTask', function (req, res, next) {
     //redirect
     
     res.location('/tasks/addTask');
-    res.redirect('../projects/');
-
+    res.redirect('/tasks/');
+    
 });
 
 
@@ -107,17 +107,17 @@ router.post('/:id', function(req, res) {
     });
 });
 
-router.delete('/:id', function(req, res) {
-    console.log(req.params.id);
-  Task.findByIdAndRemove(req.params.id).exec(function(err) {
+router.delete('/:name', function(req, res) {
+    console.log(req.params.name);
+  Project.findOneAndRemove(req.params.name).exec(function(err) {
     if(err) {
         res.render('error', {
             error: err,
             message: err.message
         });
     } else {
-      req.flash('success', 'Task deleted.');
-      res.redirect('/projects/:id');
+      req.flash('success', 'Project deleted.');
+      res.redirect('/projects');
     }
   });
 });

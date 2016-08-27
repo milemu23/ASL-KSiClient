@@ -157,15 +157,15 @@ router.post('/:id', upload.single('projectImage'), function(req, res) {
 
 router.delete('/:id', function(req, res) {
     console.log(req.params.id);
-  Project.findByIdAndRemove(req.params.id).exec(function(err) {
+  Task.findByIdAndRemove(req.params.id).exec(function(err) {
     if(err) {
         res.render('error', {
             error: err,
             message: err.message
         });
     } else {
-      req.flash('success', 'Project deleted.');
-      res.redirect('/projects');
+      req.flash('success', 'Task deleted.');
+      res.redirect('/tasks');
     }
   });
 });
